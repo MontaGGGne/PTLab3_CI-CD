@@ -1,0 +1,24 @@
+- model: shop.product
+  pk: 1
+  fields:
+    name: Стол
+    price: 2000
+    quantity: 100
+    max_quantity: 100
+    growth_percentage: 0
+- model: shop.product
+  pk: 2
+  fields:
+    name: Стул
+    price: 1000
+    quantity: 100
+    max_quantity: 100
+    growth_percentage: 0
+- model: shop.product
+  pk: 3
+  fields:
+    name: Табурет
+    price: 500
+    quantity: 100
+    max_quantity: 100
+    growth_percentage: 0
