@@ -17,6 +17,8 @@ def index(request):
 class PurchaseCreate(CreateView):
     model = Purchase
     fields = ['product', 'product_quantity', 'person', 'address']
+    
+    
 
     def form_valid(self, form):
         self.object = form.save()
@@ -30,31 +32,28 @@ class PurchaseCreate(CreateView):
             print(repr(e))
             exit(0)
 
+        self.my_func(product, product_quantity)
+
+        return HttpResponse(f'Спасибо за покупку, {self.object.person}!')
+
+    def my_func(self, product: Product | None, product_quantity: int) -> None:
         print(f"product - {product}")
         try:
-            pq = product.quantity
+            product.quantity = int(product.quantity)
+            product.max_quantity= int(product.max_quantity)
+            product.price = int(product.price)
+            product.growth_percentage = int(product.growth_percentage)
         except Exception as e:
             print(repr(e))
             exit(0)
 
-        # all_sum = 0
-        # counter = 0
-        # round_p_q = int(math.ceil(product.quantity))
-        # p_diff = round_p_q - product.quantity
-        # while product_quantity > 0:
-        #     if product_quantity <= p_diff:
-        #         all_sum += product_quantity * product.price
-        #         product_quantity -= product_quantity
-        #     elif counter == 0:
-        #         product_quantity -= p_diff
-        #         all_sum += p_diff * product.price
-        #         product.quantity = product.quantity - p_diff
-        #         p_diff = 
-        #     else:
-        #         product.quantity = product.quantity - product_quantity
-
         print(f"product.quantity before - {product.quantity}")
-        product.quantity = product.quantity - product_quantity
+
+        try:
+            product.quantity = product.quantity - product_quantity
+        except Exception as e:
+            print(repr(e))
+            exit(0)
         print(f"product.quantity - {product.quantity}")
         
         coeff_quantity = int(math.floor((product.max_quantity - product.quantity)/10))
@@ -65,5 +64,4 @@ class PurchaseCreate(CreateView):
         product.price += (product.price * product.growth_percentage)/100
         
         product.save()
-        return HttpResponse(f'Спасибо за покупку, {self.object.person}!')
 

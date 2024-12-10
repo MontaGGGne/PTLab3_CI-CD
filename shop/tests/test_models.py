@@ -35,7 +35,7 @@ class PurchaseTestCase(TestCase):
                                                    quantity="100", max_quantity="100")
         self.datetime = datetime.now()
         Purchase.objects.create(product=self.product_book,
-                                product_quantity="5",
+                                product_quantity="10",
                                 person="Ivanov",
                                 address="Svetlaya St.")
 
@@ -47,7 +47,7 @@ class PurchaseTestCase(TestCase):
 
     def test_correctness_data(self):
         self.assertTrue(Purchase.objects.get(product=self.product_book).person == "Ivanov")
-        self.assertTrue(Purchase.objects.get(product=self.product_book).product_quantity == 5)
+        self.assertTrue(Purchase.objects.get(product=self.product_book).product_quantity == 10)
         self.assertTrue(Purchase.objects.get(product=self.product_book).address == "Svetlaya St.")
         self.assertTrue(Purchase.objects.get(product=self.product_book).date.replace(microsecond=0) == \
             self.datetime.replace(microsecond=0))
